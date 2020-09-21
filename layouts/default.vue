@@ -18,46 +18,31 @@
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
-        <v-app-bar :clipped-left="clipped" fixed app>
+        <v-app-bar fixed app>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
             <v-toolbar-title v-text="title" />
             <v-spacer />
-            <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-                <v-icon>mdi-menu</v-icon>
-            </v-btn>
+            {{ this.$store.state.loggedInUser.firstName }}
+            {{ this.$store.state.loggedInUser.lastName }}
+            <v-avatar color="primary" size="35" style="margin-left: 10px">
+                <v-icon> mdi-account-circle</v-icon>
+            </v-avatar>
         </v-app-bar>
         <v-main>
             <v-container>
                 <nuxt />
             </v-container>
         </v-main>
-        <v-navigation-drawer
-            v-model="rightDrawer"
-            :right="right"
-            temporary
-            fixed
-        >
-            <v-list>
-                <v-list-item @click.native="right = !right">
-                    <v-list-item-action>
-                        <v-icon light> mdi-repeat</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-title
-                        >Switch drawer (click me)
-                    </v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-navigation-drawer>
         <v-footer :absolute="!fixed" app>
             <span>&copy; {{ new Date().getFullYear() }}</span>
         </v-footer>
         <v-snackbar
-            v-model="snackbarVisible"
+            v-model="snackbar.show"
             top
             style="opacity: 0.75"
             :timeout="1000"
-            >{{ snackbarText }}
+            >{{ snackbar.text }}
         </v-snackbar>
     </v-app>
 </template>
@@ -78,9 +63,22 @@ export default {
             right: true,
             rightDrawer: false,
             title: 'Chat app',
-            snackbarVisible: false,
-            snackbarText: '',
+            snackbar: {
+                show: true,
+                text: '',
+            },
         }
+    },
+    created() {
+        this.$nuxt.$on('snackbar', ({ show, text }) => {
+            this.snackbar = {
+                show,
+                text,
+            }
+        })
+    },
+    beforeDestroy() {
+        this.$nuxt.$off('snackbar')
     },
 }
 </script>

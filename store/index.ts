@@ -1,20 +1,9 @@
-import { getSecondsSinceMidnight } from '~/lib/date'
+import { v4 as uuid } from 'uuid'
+import { getRandomUser } from '~/lib/randomUser'
 
 export const state = () => ({
     debug: true,
-    loggedInUser: {
-        id: 0,
-        firstName: 'Max',
-        lastName: 'Mustermann',
-        gender: 'male',
-        state: 'connected',
-        face: 'neutral',
-        lastUpdated: getSecondsSinceMidnight(),
-    },
+    loggedInUser: getRandomUser(uuid()),
 })
 
-export const mutations = {
-    toggleDebug(state) {
-        state.debug = !state.debug
-    },
-}
+export const mutations = {}
