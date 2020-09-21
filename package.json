@@ -3,7 +3,9 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "dev": "nuxt-ts",
+        "dev": "concurrently --kill-others \"yarn dev-frontend\" \"yarn dev-backend\" ",
+        "dev-frontend": "nuxt-ts",
+        "dev-backend": "nodemon server/main.js",
         "build": "nuxt-ts build",
         "start": "nuxt-ts start",
         "generate": "nuxt-ts generate",
@@ -13,16 +15,21 @@
     "dependencies": {
         "@nuxt/typescript-runtime": "^2.0.0",
         "core-js": "^3.6.5",
-        "nuxt": "^2.14.5"
+        "nuxt": "^2.14.5",
+        "socket.io": "^2.3.0",
+        "uuid": "^8.3.0"
     },
     "devDependencies": {
+        "nodemon": "^2.0.4",
         "@nuxt/types": "^2.14.5",
         "@nuxt/typescript-build": "^2.0.3",
         "@nuxtjs/eslint-config": "^3.1.0",
         "@nuxtjs/eslint-config-typescript": "^3.0.0",
         "@nuxtjs/eslint-module": "^2.0.0",
         "@nuxtjs/vuetify": "^1.11.2",
+        "@types/uuid": "^8.3.0",
         "babel-eslint": "^10.1.0",
+        "concurrently": "^5.3.0",
         "eslint": "^7.8.1",
         "eslint-config-prettier": "^6.11.0",
         "eslint-plugin-nuxt": "^1.0.0",
