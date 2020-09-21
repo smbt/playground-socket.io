@@ -40,7 +40,7 @@
         <v-snackbar
             v-model="snackbar.show"
             top
-            style="opacity: 0.75"
+            style="opacity: 0.75; display: none"
             :timeout="1000"
             >{{ snackbar.text }}
         </v-snackbar>
